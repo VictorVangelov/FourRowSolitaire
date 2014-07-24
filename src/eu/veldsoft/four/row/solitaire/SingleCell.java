@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 
 package eu.veldsoft.four.row.solitaire;
 
+import java.awt.Graphics;
 import java.awt.Point;
 
 /**
@@ -27,9 +28,10 @@ import java.awt.Point;
  * Description: The SingleCell class manages an individual cell that can only
  * hold one card.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Matt Stephen
  */
-public class SingleCell extends CardStack {
+class SingleCell extends CardStack {
+
 	/**
 	 * 
 	 */
@@ -41,8 +43,10 @@ public class SingleCell extends CardStack {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public Card push(Card card) {
+	public CardComponent push(CardComponent card) {
 		if (isEmpty() == true) {
 			super.push(card);
 			return card;
@@ -57,8 +61,10 @@ public class SingleCell extends CardStack {
 	 * @param p
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public Card getCardAtLocation(Point p) {
+	public CardComponent getCardAtLocation(Point p) {
 		return peek();
 	}
 
@@ -69,8 +75,10 @@ public class SingleCell extends CardStack {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public boolean isValidMove(Card card) {
+	public boolean isValidMove(CardComponent card) {
 		if (isEmpty() == true) {
 			return true;
 		}
@@ -84,6 +92,8 @@ public class SingleCell extends CardStack {
 	 * @param stack
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public boolean isValidMove(CardStack stack) {
 		return false;
@@ -93,6 +103,8 @@ public class SingleCell extends CardStack {
 	 * Returns the card from the cell. If there is no card - returns null.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public CardStack getAvailableCards() {
 		if (isEmpty() == true) {
@@ -103,5 +115,24 @@ public class SingleCell extends CardStack {
 		stack.addCard(peek());
 
 		return stack;
+	}
+
+	/**
+	 * Paint procedure.
+	 * 
+	 * @param g
+	 *            Graphic context.
+	 * 
+	 * @author Todor Balabanov
+	 */
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+
+		if (isEmpty()) {
+			return;
+		}
+		
+		g.drawImage(cards.get(cards.size()-1).getImage(), 0, 0, null);
 	}
 }

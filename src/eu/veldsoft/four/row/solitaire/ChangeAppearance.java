@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -40,9 +40,10 @@ import javax.swing.JRadioButton;
  * Description: The ChangeAppearance class manages the ability to change the
  * background or card backs.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Matt Stephen
  */
-public class ChangeAppearance extends JDialog implements ActionListener {
+class ChangeAppearance extends JDialog implements ActionListener {
+
 	/**
 	 * 
 	 */
@@ -52,14 +53,17 @@ public class ChangeAppearance extends JDialog implements ActionListener {
 	 * Number of card backs.
 	 */
 	public static final int NUM_DECKS = 4;
+
 	/**
 	 * Number of card backgrounds.
 	 */
 	public static final int NUM_BACKGROUNDS = 3;
+
 	/**
 	 * Default deck number.
 	 */
 	public static final int FRS_DECK = 3;
+
 	/**
 	 * Default background number.
 	 */
@@ -84,6 +88,7 @@ public class ChangeAppearance extends JDialog implements ActionListener {
 	 * Default deck number.
 	 */
 	public int deckNumber = 3;
+
 	/**
 	 * Default background number.
 	 */
@@ -98,6 +103,7 @@ public class ChangeAppearance extends JDialog implements ActionListener {
 	 * To hold the image previews.
 	 */
 	private JLabel cardBackLabel = new JLabel();
+
 	/**
 	 * To hold the image previews.
 	 */
@@ -111,6 +117,8 @@ public class ChangeAppearance extends JDialog implements ActionListener {
 	 * @param deckNumber
 	 * 
 	 * @param backgroundNumber
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public ChangeAppearance(JFrame parent, int deckNumber, int backgroundNumber) {
 		setTitle("Change Appearance");
@@ -129,6 +137,8 @@ public class ChangeAppearance extends JDialog implements ActionListener {
 	/**
 	 * Manages the settings that can be changed via the Change Appearance menu.
 	 * The menu is used to set card back image and background image.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	private void setup() {
 		/*
@@ -177,12 +187,12 @@ public class ChangeAppearance extends JDialog implements ActionListener {
 		buttonPanel.add(ok);
 
 		cardBackLabel.setIcon(new ImageIcon(this.getClass().getResource(
-				"images/cardbacks/cardback" + deckNumber + ".png")));
+				"images/vanya/cardbacks/cardback" + deckNumber + ".png")));
 		JPanel cardBackViewer = new JPanel();
 		cardBackViewer.add(cardBackLabel);
 
 		backgroundLabel.setIcon(new ImageIcon(this.getClass().getResource(
-				"images/backgrounds/background" + backgroundNumber
+				"images/vanya/backgrounds/background" + backgroundNumber
 						+ "small.jpg")));
 		JPanel backgroundViewer = new JPanel();
 		backgroundViewer.add(backgroundLabel);
@@ -218,6 +228,8 @@ public class ChangeAppearance extends JDialog implements ActionListener {
 	 * represents the one of the images.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getDeckNumber() {
 		if (!exited) {
@@ -232,6 +244,8 @@ public class ChangeAppearance extends JDialog implements ActionListener {
 	 * represents one of the images.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getBackgroundNumber() {
 		if (!exited) {
@@ -246,40 +260,42 @@ public class ChangeAppearance extends JDialog implements ActionListener {
 	 * selected from the menu.
 	 * 
 	 * @param e
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == decks[0]) {
 			deckNumber = 1;
 			cardBackLabel.setIcon(new ImageIcon(this.getClass().getResource(
-					"images/cardbacks/cardback" + deckNumber + ".png")));
+					"images/vanya/cardbacks/cardback" + deckNumber + ".png")));
 		} else if (e.getSource() == decks[1]) {
 			deckNumber = 2;
 			cardBackLabel.setIcon(new ImageIcon(this.getClass().getResource(
-					"images/cardbacks/cardback" + deckNumber + ".png")));
+					"images/vanya/cardbacks/cardback" + deckNumber + ".png")));
 		} else if (e.getSource() == decks[2]) {
 			deckNumber = 3;
 			cardBackLabel.setIcon(new ImageIcon(this.getClass().getResource(
-					"images/cardbacks/cardback" + deckNumber + ".png")));
+					"images/vanya/cardbacks/cardback" + deckNumber + ".png")));
 		} else if (e.getSource() == decks[3]) {
 			deckNumber = 4;
 			cardBackLabel.setIcon(new ImageIcon(this.getClass().getResource(
-					"images/cardbacks/cardback" + deckNumber + ".png")));
+					"images/vanya/cardbacks/cardback" + deckNumber + ".png")));
 		}
 
 		else if (e.getSource() == backgrounds[0]) {
 			backgroundNumber = 1;
 			backgroundLabel.setIcon(new ImageIcon(this.getClass().getResource(
-					"images/backgrounds/background" + backgroundNumber
+					"images/vanya/backgrounds/background" + backgroundNumber
 							+ "small.jpg")));
 		} else if (e.getSource() == backgrounds[1]) {
 			backgroundNumber = 2;
 			backgroundLabel.setIcon(new ImageIcon(this.getClass().getResource(
-					"images/backgrounds/background" + backgroundNumber
+					"images/vanya/backgrounds/background" + backgroundNumber
 							+ "small.jpg")));
 		} else if (e.getSource() == backgrounds[2]) {
 			backgroundNumber = 3;
 			backgroundLabel.setIcon(new ImageIcon(this.getClass().getResource(
-					"images/backgrounds/background" + backgroundNumber
+					"images/vanya/backgrounds/background" + backgroundNumber
 							+ "small.jpg")));
 		}
 

@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, 2012 by pavlosn
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva, 2012 by pavlosn
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -42,9 +42,10 @@ import javax.swing.JTextField;
  * Description: The TopTimes class manages the scoreboard, saves names and
  * times, also discards them.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Todor Balabanov
  */
-public class TopTimes extends JFrame implements ActionListener, KeyListener {
+class TopTimes extends JFrame implements ActionListener, KeyListener {
+
 	/**
 	 * 
 	 */
@@ -55,20 +56,40 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 	 */
 	private final int NUM_OF_RECORDS = 10;
 
+	/**
+	 * 
+	 */
 	private JTextField names[] = new JTextField[NUM_OF_RECORDS];
 
+	/**
+	 * 
+	 */
 	private JLabel times[] = new JLabel[NUM_OF_RECORDS];
 
+	/**
+	 * 
+	 */
 	private JLabel jLabel[] = new JLabel[NUM_OF_RECORDS];
 
+	/**
+	 * 
+	 */
 	private JSeparator jSeparator[] = new JSeparator[NUM_OF_RECORDS];
 
+	/**
+	 * 
+	 */
 	private int pos;
 
+	/**
+	 * 
+	 */
 	private JButton jButton;
 
 	/**
 	 * Constructor.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public TopTimes() {
 		initComponents();
@@ -76,6 +97,8 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 
 	/**
 	 * Initializes the GUI components.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	private void initComponents() {
 		for (int i = 0; i < names.length; i++) {
@@ -525,6 +548,8 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 
 	/**
 	 * Loads the saved times and names.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void loadData() {
 		String fileLocation = System.getProperty("user.home")
@@ -552,6 +577,8 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 	 * Action performed.
 	 * 
 	 * @param e
+	 * 
+	 * @author Todor Balabanov
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -566,6 +593,8 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 
 	/**
 	 * Discard all the data and saves the changes.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	private void clearData() {
 		String fileLocation = System.getProperty("user.home")
@@ -588,6 +617,8 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 
 	/**
 	 * Saves the data into frs-topTimes file.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	private void saveData() {
 		String fileLocation = System.getProperty("user.home")
@@ -611,6 +642,8 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 	 * 
 	 * @param newTime
 	 *            this parameter is the new time to save.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void setProperties(int newTime) {
 		for (int j = NUM_OF_RECORDS - 1; (j >= 1) && (j > pos); j--) {
@@ -631,6 +664,8 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 	/**
 	 * 
 	 * @param
+	 * 
+	 * @author Todor Balabanov
 	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -641,6 +676,8 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 	 * the function stores the new name.
 	 * 
 	 * @param e
+	 * 
+	 * @author Todor Balabanov
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -656,6 +693,13 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 		saveData();
 	}
 
+	/**
+	 * On key released.
+	 * 
+	 * @param e
+	 * 
+	 * @author Todor Balabanov
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 	}
@@ -668,6 +712,8 @@ public class TopTimes extends JFrame implements ActionListener, KeyListener {
 	 *            ten times.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int IsTopTime(int newTime) {
 		for (int i = 0; i < NUM_OF_RECORDS; i++) {

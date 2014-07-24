@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,58 +20,72 @@
 package eu.veldsoft.four.row.solitaire;
 
 /**
+ * Card rank enum.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Todor Balabanov
  */
-public enum CardRank {
+enum CardRank {
+
 	/**
-	 * Enum list.
+	 * 
 	 */
 	ACE(1),
+
 	/**
 	 * 
 	 */
 	TWO(2),
+
 	/**
 	 * 
 	 */
 	THREE(3),
+
 	/**
 	 * 
 	 */
 	FOUR(4),
+
 	/**
 	 * 
 	 */
 	FIVE(5),
+
 	/**
 	 * 
 	 */
 	SIX(6),
+
 	/**
 	 * 
 	 */
 	SEVEN(7),
+
 	/**
 	 * 
 	 */
 	EIGHT(8),
+
 	/**
 	 * 
 	 */
 	NINE(9),
+
 	/**
 	 * 
 	 */
 	TEN(10),
+
 	/**
 	 * 
 	 */
 	JACK(11),
+
 	/**
 	 * 
 	 */
 	QUEEN(12),
+
 	/**
 	 * 
 	 */
@@ -88,6 +102,8 @@ public enum CardRank {
 	 * @param index
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public static CardRank getValue(int index) {
 		switch (index) {
@@ -127,6 +143,8 @@ public enum CardRank {
 	 * represents one of the 13 ranks.
 	 * 
 	 * @param index
+	 * 
+	 * @author Todor Balabanov
 	 */
 	private CardRank(int index) {
 		this.index = index;
@@ -136,6 +154,8 @@ public enum CardRank {
 	 * Returns the card's rank.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getIndex() {
 		return index;
@@ -148,6 +168,8 @@ public enum CardRank {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public boolean isLessByOneThan(final CardRank card) {
 		if (this == TWO && card == ACE) {
@@ -197,6 +219,8 @@ public enum CardRank {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public boolean isGreaterByOneThan(final CardRank card) {
 		if (card == TWO && this == ACE) {

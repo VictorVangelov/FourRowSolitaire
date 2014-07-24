@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,25 +22,34 @@ package eu.veldsoft.four.row.solitaire;
 /**
  * Manages the card suit.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Todor Balabanov
  */
-public enum CardSuit {
+enum CardSuit {
+
 	/**
-	 * Enum list.
+	 * Spades enum constant.
 	 */
-	SPADES("Spades"),
-	/**
-	 * 
-	 */
-	CLUBS("Clubs"),
+	SPADES(0, "Spades"),
+
 	/**
 	 * 
 	 */
-	HEARTS("Hearts"),
+	CLUBS(1, "Clubs"),
+
 	/**
 	 * 
 	 */
-	DIAMONDS("Diamonds");
+	DIAMONDS(2, "Diamonds"),
+
+	/**
+	 * 
+	 */
+	HEARTS(3, "Hearts");
+
+	/**
+	 * Suit name.
+	 */
+	private int index;
 
 	/**
 	 * Suit name.
@@ -50,16 +59,36 @@ public enum CardSuit {
 	/**
 	 * Sets the card suit.
 	 * 
+	 * @param index
+	 *            Suit index.
+	 * 
 	 * @param name
+	 *            Suit name.
+	 * 
+	 * @author Todor Balabanov
 	 */
-	private CardSuit(String name) {
+	private CardSuit(int index, String name) {
+		this.index = index;
 		this.name = name;
+	}
+
+	/**
+	 * Index of the suit.
+	 * 
+	 * @return Index to be used for the suit.
+	 * 
+	 * @author Todor Balabanov
+	 */
+	public int getIndex() {
+		return index;
 	}
 
 	/**
 	 * Returns the card suit.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public String getName() {
 		return name;

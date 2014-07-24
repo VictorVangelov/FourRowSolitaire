@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -43,6 +43,8 @@ import android.text.TextUtils;
  * Android Design: Settings</a> for design guidelines and the <a
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
+ * 
+ * @author Konstantin Tsanov
  */
 public class SettingsActivity extends PreferenceActivity {
 	/**
@@ -53,6 +55,13 @@ public class SettingsActivity extends PreferenceActivity {
 	 */
 	private static final boolean ALWAYS_SIMPLE_PREFS = false;
 
+	/**
+	 * On creation.
+	 * 
+	 * @param savedInstanceState
+	 * 
+	 * @author Konstantin Tsanov
+	 */
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
@@ -64,6 +73,8 @@ public class SettingsActivity extends PreferenceActivity {
 	 * Shows the simplified settings UI if the device configuration if the
 	 * device configuration dictates that a simplified, single-pane UI should be
 	 * shown.
+	 * 
+	 * @author Konstantin Tsanov
 	 */
 	private void setupSimplePreferencesScreen() {
 		if (!isSimplePreferences(this)) {
@@ -86,6 +97,9 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
 	/** {@inheritDoc} */
+	/**
+	 * @author Konstantin Tsanov
+	 */
 	@Override
 	public boolean onIsMultiPane() {
 		return isXLargeTablet(this) && !isSimplePreferences(this);
@@ -94,6 +108,12 @@ public class SettingsActivity extends PreferenceActivity {
 	/**
 	 * Helper method to determine if the device has an extra-large screen. For
 	 * example, 10" tablets are extra-large.
+	 * 
+	 * @param context
+	 * 
+	 * @return
+	 * 
+	 * @author Konstantin Tsanov
 	 */
 	private static boolean isXLargeTablet(Context context) {
 		return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
@@ -105,6 +125,12 @@ public class SettingsActivity extends PreferenceActivity {
 	 * doesn't have newer APIs like {@link PreferenceFragment}, or the device
 	 * doesn't have an extra-large screen. In these cases, a single-pane
 	 * "simplified" settings UI should be shown.
+	 * 
+	 * @param context
+	 * 
+	 * @return
+	 * 
+	 * @author Konstantin Tsanov
 	 */
 	private static boolean isSimplePreferences(Context context) {
 		return ALWAYS_SIMPLE_PREFS
@@ -115,6 +141,8 @@ public class SettingsActivity extends PreferenceActivity {
 	/**
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
+	 * 
+	 * @author Konstantin Tsanov
 	 */
 	private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
 		@Override
@@ -171,7 +199,11 @@ public class SettingsActivity extends PreferenceActivity {
 	 * immediately updated upon calling this method. The exact display format is
 	 * dependent on the type of preference.
 	 * 
+	 * @param preference
+	 * 
 	 * @see #sBindPreferenceSummaryToValueListener
+	 * 
+	 * @author Konstantin Tsanov
 	 */
 	private static void bindPreferenceSummaryToValue(Preference preference) {
 		// Set the listener to watch for value changes.

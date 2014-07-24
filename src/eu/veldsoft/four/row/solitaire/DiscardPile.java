@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,9 +29,10 @@ import java.awt.Point;
  * Description: The DiscardPile class manages the stack of Cards discarded from
  * the deck.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Matt Stephen
  */
-public class DiscardPile extends CardStack {
+class DiscardPile extends CardStack {
+
 	/**
 	 * 
 	 */
@@ -46,6 +47,8 @@ public class DiscardPile extends CardStack {
 	 * Returns the cards left from the last draw from the deal deck.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getNumViewableCards() {
 		return cardsLeftFromDraw;
@@ -55,6 +58,8 @@ public class DiscardPile extends CardStack {
 	 * Sets the number of cards left from the last draw from the deck.
 	 * 
 	 * @param numViewableCards
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void setView(int numViewableCards) {
 		cardsLeftFromDraw = numViewableCards;
@@ -64,8 +69,10 @@ public class DiscardPile extends CardStack {
 	 * Adds a card to the pile of currently viewable cards.
 	 * 
 	 * @param card
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public void addCard(Card card) {
+	public void addCard(CardComponent card) {
 		cardsLeftFromDraw++;
 		super.addCard(card);
 	}
@@ -74,10 +81,12 @@ public class DiscardPile extends CardStack {
 	 * Adds stack of cards to the pile of currently viewable cards.
 	 * 
 	 * @param stack
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void addStack(CardStack stack) {
 		for (int i = stack.length(); i > 0; i--) {
-			Card card = stack.pop();
+			CardComponent card = stack.pop();
 			addCard(card);
 		}
 	}
@@ -89,14 +98,16 @@ public class DiscardPile extends CardStack {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public Card push(Card card) {
+	public CardComponent push(CardComponent card) {
 		if (SolitaireBoard.drawCount == 1) {
 			cardsLeftFromDraw = 0;
 		}
 
 		addCard(card);
-		card.setSource("");
+		card.getCard().setSource("");
 		return card;
 	}
 
@@ -107,6 +118,8 @@ public class DiscardPile extends CardStack {
 	 * @param stack
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public CardStack push(CardStack stack) {
 		if (SolitaireBoard.drawCount != 1
@@ -125,9 +138,11 @@ public class DiscardPile extends CardStack {
 	 * Pops cards out of the stack of viewable cards.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public synchronized Card pop() {
-		Card card = super.pop();
+	public synchronized CardComponent pop() {
+		CardComponent card = super.pop();
 
 		/*
 		 * To make the display of multiple cards correct (After a player removes
@@ -146,8 +161,10 @@ public class DiscardPile extends CardStack {
 	 * Used to undo the pop.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public synchronized Card undoPop() {
+	public synchronized CardComponent undoPop() {
 		return super.pop();
 	}
 
@@ -157,8 +174,10 @@ public class DiscardPile extends CardStack {
 	 * @param p
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public Card getCardAtLocation(Point p) {
+	public CardComponent getCardAtLocation(Point p) {
 		return peek();
 	}
 
@@ -168,9 +187,11 @@ public class DiscardPile extends CardStack {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public boolean isValidMove(Card card) {
-		if (card.getSource().equals("Deck")) {
+	public boolean isValidMove(CardComponent card) {
+		if (card.getCard().getSource().equals("Deck")) {
 			return true;
 		}
 
@@ -183,9 +204,29 @@ public class DiscardPile extends CardStack {
 	 * @param stack
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public boolean isValidMove(CardStack stack) {
 		return false;
+	}
+
+	/**
+	 * Returns the stack of available cards.
+	 * 
+	 * @return
+	 * 
+	 * @author Todor Balabanov
+	 */
+	public CardStack getAvailableCards() {
+		if (isEmpty() == true) {
+			return (null);
+		}
+
+		CardStack stack = new CardStack();
+		stack.addCard(peek());
+
+		return stack;
 	}
 
 	/**
@@ -193,7 +234,10 @@ public class DiscardPile extends CardStack {
 	 * 
 	 * @param g
 	 *            Graphic context.
+	 * 
+	 * @author Todor Balabanov
 	 */
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 
@@ -226,21 +270,5 @@ public class DiscardPile extends CardStack {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Returns the stack of available cards.
-	 * 
-	 * @return
-	 */
-	public CardStack getAvailableCards() {
-		if (isEmpty() == true) {
-			return (null);
-		}
-
-		CardStack stack = new CardStack();
-		stack.addCard(peek());
-
-		return stack;
 	}
 }

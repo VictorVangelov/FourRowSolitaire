@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -19,14 +19,18 @@
 
 package eu.veldsoft.four.row.solitaire;
 
+import java.awt.Graphics;
+import java.awt.Image;
+
 /**
  * Class: Column
  * 
  * Description: The Column class manages a single column on the board.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Matt Stephen
  */
-public class Column extends CardStack {
+class Column extends CardStack {
+
 	/**
 	 * 
 	 */
@@ -39,8 +43,10 @@ public class Column extends CardStack {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public Card push(Card card) {
+	public CardComponent push(CardComponent card) {
 		if (isValidMove(card) == true) {
 			super.push(card);
 			return card;
@@ -57,14 +63,19 @@ public class Column extends CardStack {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public boolean isValidMove(Card card) {
-		if (isEmpty() == true && card.getNumber().equals(CardRank.KING)) {
+	public boolean isValidMove(CardComponent card) {
+		if (isEmpty() == true
+				&& card.getCard().getNumber().equals(CardRank.KING)) {
 			return true;
 		}
 
-		if (isEmpty() == false && card.getColor() != peek().getColor()
-				&& card.getNumber().isGreaterByOneThan(peek().getNumber())) {
+		if (isEmpty() == false
+				&& card.getCard().getColor() != peek().getCard().getColor()
+				&& card.getCard().getNumber()
+						.isGreaterByOneThan(peek().getCard().getNumber())) {
 			return true;
 		}
 
@@ -79,6 +90,8 @@ public class Column extends CardStack {
 	 * @param stack
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public boolean isValidMove(CardStack stack) {
 		return isValidMove(stack.peek());
@@ -91,6 +104,8 @@ public class Column extends CardStack {
 	 * Then returns the stack.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public CardStack getAvailableCards() {
 		if (isEmpty() == true) {
@@ -101,11 +116,12 @@ public class Column extends CardStack {
 		stack.addCard(cards.get(length() - 1));
 
 		for (int index = length() - 2; index >= 0; index--) {
-			Card card = cards.get(index);
+			CardComponent card = cards.get(index);
 
-			if (card.getColor() != stack.peek().getColor()
-					&& card.getNumber().isLessByOneThan(
-							stack.peek().getNumber())) {
+			if (card.getCard().getColor() != stack.peek().getCard().getColor()
+					&& card.getCard()
+							.getNumber()
+							.isLessByOneThan(stack.peek().getCard().getNumber())) {
 				stack.addCard(card);
 			} else {
 				break;
@@ -114,4 +130,27 @@ public class Column extends CardStack {
 
 		return stack;
 	}
+
+	/**
+	 * Paint procedure.
+	 * 
+	 * @param g
+	 *            Graphic context.
+	 * 
+	 * @author Todor Balabanov
+	 */
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+
+		if (isEmpty()) {
+			return;
+		}
+
+		for (int i = 0; i < cards.size(); i++) {
+			Image image = cards.get(i).getImage();
+			g.drawImage(image, 0, i * 25, null);
+		}
+	}
+
 }

@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,9 +28,10 @@ import java.awt.Point;
  * 
  * Description: The AcePile class manages one of the four foundation stacks.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Matt Stephen
  */
-public class AcePile extends CardStack {
+class AcePile extends CardStack {
+
 	/**
 	 * 
 	 */
@@ -46,6 +47,8 @@ public class AcePile extends CardStack {
 	 * Clubs, Hearts or Diamonds
 	 * 
 	 * @param suit
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public AcePile(CardSuit suit) {
 		this.suit = suit;
@@ -55,6 +58,8 @@ public class AcePile extends CardStack {
 	 * Returns the pile's suit.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public CardSuit getSuit() {
 		return suit;
@@ -66,8 +71,10 @@ public class AcePile extends CardStack {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public Card push(Card card) {
+	public CardComponent push(CardComponent card) {
 		if (isValidMove(card) == false) {
 			return null;
 		}
@@ -82,8 +89,10 @@ public class AcePile extends CardStack {
 	 * @param point
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public Card getCardAtLocation(Point point) {
+	public CardComponent getCardAtLocation(Point point) {
 		return peek();
 	}
 
@@ -93,15 +102,19 @@ public class AcePile extends CardStack {
 	 * @param card
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
-	public boolean isValidMove(Card card) {
-		if (card.getSuit().equals(suit) == false) {
+	@Override
+	public boolean isValidMove(CardComponent card) {
+		if (card.getCard().getSuit().equals(suit) == false) {
 			return false;
 		}
 
-		if (isEmpty() && card.getNumber().equals(CardRank.ACE)) {
+		if (isEmpty() && card.getCard().getNumber().equals(CardRank.ACE)) {
 			return true;
-		} else if (card.getNumber().isLessByOneThan(peek().getNumber())) {
+		} else if (card.getCard().getNumber()
+				.isLessByOneThan(peek().getCard().getNumber())) {
 			return true;
 		}
 
@@ -115,16 +128,48 @@ public class AcePile extends CardStack {
 	 * @param stack
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public boolean isValidMove(CardStack stack) {
 		return false;
 	}
 
 	/**
+	 * 
+	 * @return
+	 * 
+	 * @author Todor Balabanov
+	 */
+	public boolean isFull() {
+		if (isEmpty() == true || length() != 13) {
+			return (false);
+		}
+
+		for (int i = 0; i < cards.size() - 1; i++) {
+			if (cards.get(i).getCard().getColor() != cards.get(i + 1).getCard()
+					.getColor()) {
+				return (false);
+			}
+
+			if (cards.get(i).getCard().getNumber()
+					.isLessByOneThan(cards.get(i + 1).getCard().getNumber()) == true) {
+				return (false);
+			}
+		}
+
+		return (true);
+	}
+
+	/**
 	 * Paint procedure.
 	 * 
-	 * @param g  Graphic context.
+	 * @param g
+	 *            Graphic context.
+	 * 
+	 * @author Todor Balabanov
 	 */
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 

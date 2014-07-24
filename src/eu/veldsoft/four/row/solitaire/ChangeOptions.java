@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -41,9 +41,10 @@ import javax.swing.border.TitledBorder;
  * Description: The ChangeOptions class manages several game options, such as
  * the draw count (1 or 3).
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Matt Stephen
  */
-public class ChangeOptions extends JDialog implements ActionListener {
+class ChangeOptions extends JDialog implements ActionListener {
+
 	/**
 	 * 
 	 */
@@ -58,10 +59,12 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * Draw count buttons.
 	 */
 	private JRadioButton drawOne = new JRadioButton("Draw One");
+
 	/**
 	 * Radio button.
 	 */
 	private JRadioButton drawThree = new JRadioButton("Draw Three");
+
 	/**
 	 * Checkbox.
 	 */
@@ -101,10 +104,12 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * Difficulty radio buttons.
 	 */
 	private JRadioButton easy = new JRadioButton("Easy");
+
 	/**
 	 * Radio button.
 	 */
 	private JRadioButton medium = new JRadioButton("Medium", true);
+
 	/**
 	 * Radio button.
 	 */
@@ -134,6 +139,8 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * @param sounds
 	 * 
 	 * @param difficulty
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public ChangeOptions(JFrame parent, int currentDraw, int timer,
 			int animation, int sounds, int difficulty) {
@@ -158,6 +165,7 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * The menu is used to set difficulty, card draw count, timer, sounds and
 	 * animations.
 	 * 
+	 * @author Todor Balabanov
 	 */
 	private void setup() {
 		ButtonGroup drawCards = new ButtonGroup();
@@ -256,6 +264,8 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * Returns the draw count (1 or 3).
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getDrawCount() {
 		if (!exited) {
@@ -270,6 +280,8 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * Returns whether the timer is switched on or not (1 or 0).
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getTimer() {
 		if (!exited) {
@@ -283,6 +295,8 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * Returns whether the animations are switched on or not (1 or 0).
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getAnimation() {
 		if (!exited) {
@@ -296,6 +310,8 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * Returns whether the sounds are switched on or not (1 or 0).
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getSounds() {
 		if (!exited) {
@@ -309,6 +325,8 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * Returns the current difficulty (1-easy,2-medium or 3-hard).
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getDifficulty() {
 		return difficulty;
@@ -320,6 +338,8 @@ public class ChangeOptions extends JDialog implements ActionListener {
 	 * save these changes.
 	 * 
 	 * @param e
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == drawOne) {

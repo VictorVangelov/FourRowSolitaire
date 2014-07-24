@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -19,13 +19,6 @@
 
 package eu.veldsoft.four.row.solitaire;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -33,26 +26,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.LinkedList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.event.MouseInputAdapter;
-
 /**
  * Class: SolitaireBoard
  * 
  * Description: The SolitaireBoard class manages the entire playing field.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Matt Stephen
  */
-public class SolitaireBoard extends JFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+class SolitaireBoard {
 
 	/**
 	 * 
@@ -60,19 +41,9 @@ public class SolitaireBoard extends JFrame {
 	private static final int INITIAL_CARDS_NUMBER_IN_COLUMN = 5;
 
 	/**
-	 * Find better OOP modeling alternative! Use enumerated type for card back.
-	 */
-	static int deckNumber = 3;
-
-	/**
 	 * Can be 1 or 3. Should be only here!
 	 */
 	static int drawCount = 1;
-
-	/**
-	 * Find better OOP modeling alternative! Use enumerated type for card back.
-	 */
-	static int backgroundNumber = 2;
 
 	/**
 	 * To store new option selection for next new game, otherwise the count
@@ -83,72 +54,32 @@ public class SolitaireBoard extends JFrame {
 	/**
 	 * The four columns for the main playing field.
 	 */
-	private Column[] columns = new Column[4];
+	// TODO Should be private.
+	Column[] columns = new Column[4];
 
 	/**
 	 * The discard pile.
 	 */
-	private DiscardPile discardPile = new DiscardPile();
+	// TODO Should be private.
+	DiscardPile discardPile = new DiscardPile();
 
 	/**
 	 * The deal pile.
 	 */
-	private DealDeck dealDeck = new DealDeck(discardPile);
+	// TODO Should be private.
+	DealDeck dealDeck = new DealDeck(discardPile);
 
 	/**
 	 * The four ace piles (to stack Ace - King of a single suit).
 	 */
-	private AcePile[] acePiles = new AcePile[4];
+	// TODO Should be private.
+	AcePile[] acePiles = new AcePile[4];
 
 	/**
 	 * The four top individual cells.
 	 */
-	private SingleCell[] cells = new SingleCell[4];
-
-	/**
-	 * 
-	 */
-	private SolitairePanel mainPanel;
-
-	/**
-	 * 
-	 */
-	private MyMouseListener ml = new MyMouseListener();
-
-	/**
-	 * 
-	 */
-	public MyWindowListener wl = new MyWindowListener();
-
-	/**
-	 * Timer.
-	 */
-	private Timer timer = new Timer(1000, new TimerListener());
-
-	/**
-	 * Status bar.
-	 */
-	private JPanel statusBar = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-	/**
-	 * Timer label.
-	 */
-	private JLabel timerLabel = new JLabel("Time: OFF");
-
-	/**
-	 * Timer count.
-	 */
-	private int timerCount = 0;
-
-	/**
-	 * Timer to next game.
-	 */
-	private int timerToRunNextGame = 0;
-
-	/**
-	 * Timer to run.
-	 */
-	private boolean timerToRun = false;
+	// TODO Should be private.
+	SingleCell[] cells = new SingleCell[4];
 
 	/**
 	 * 1 = easy, 2 = medium, 3 = hard Should be only here!
@@ -161,41 +92,35 @@ public class SolitaireBoard extends JFrame {
 	private GameDifficulty newDifficulty = difficulty;
 
 	/**
-	 * 
+	 * Source.
 	 */
-	private LinkedList<CardStack> sourceList = new LinkedList<CardStack>();
+	// TODO Should be private.
+	LinkedList<CardStack> sourceList = new LinkedList<CardStack>();
 
 	/**
-	 * 
+	 * Destination.
 	 */
-	private LinkedList<CardStack> destinationList = new LinkedList<CardStack>();
+	// TODO Should be private.
+	LinkedList<CardStack> destinationList = new LinkedList<CardStack>();
 
 	/**
-	 * 
+	 * Card numbers.
 	 */
-	private LinkedList<Integer> numCards = new LinkedList<Integer>();
+	// TODO Should be private.
+	LinkedList<Integer> numCards = new LinkedList<Integer>();
 
 	/**
-	 * 
+	 * The cards from the discard pile.
 	 */
-	private LinkedList<Integer> numCardsInDiscardView = new LinkedList<Integer>();
+	LinkedList<Integer> numCardsInDiscardView = new LinkedList<Integer>();
 
 	/**
 	 * Sets the board's window name, size, location, close button option, makes
 	 * it unresizable and puts the logo on it.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public SolitaireBoard() {
-		setTitle("Four Row Solitaire");
-		setSize(806, 700);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
-		setIconImage(new ImageIcon(getClass().getResource("images/logo.png"))
-				.getImage());
-
-		setVisible(true);
-
-		addWindowListener(wl);
 	}
 
 	/**
@@ -204,38 +129,17 @@ public class SolitaireBoard extends JFrame {
 	 * @param cards
 	 * 
 	 * @param numViewableCards
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void createBoard(LinkedList<Integer> cards, int numViewableCards) {
-		mainPanel = new SolitairePanel();
-		mainPanel.setLayout(new SolitaireLayout());
-
-		mainPanel.changeBackground(backgroundNumber);
-
 		for (int i = 0; i < columns.length; i++) {
 			columns[i] = new Column();
-			columns[i].addMouseListener(ml);
 		}
-
-		mainPanel.add(columns[0], SolitaireLayout.COLUMN_ONE);
-		mainPanel.add(columns[1], SolitaireLayout.COLUMN_TWO);
-		mainPanel.add(columns[2], SolitaireLayout.COLUMN_THREE);
-		mainPanel.add(columns[3], SolitaireLayout.COLUMN_FOUR);
 
 		for (int i = 0; i < cells.length; i++) {
 			cells[i] = new SingleCell();
-			cells[i].addMouseListener(ml);
 		}
-
-		mainPanel.add(cells[0], SolitaireLayout.CELL_ONE);
-		mainPanel.add(cells[1], SolitaireLayout.CELL_TWO);
-		mainPanel.add(cells[2], SolitaireLayout.CELL_THREE);
-		mainPanel.add(cells[3], SolitaireLayout.CELL_FOUR);
-
-		dealDeck.addMouseListener(ml);
-		discardPile.addMouseListener(ml);
-
-		mainPanel.add(dealDeck, SolitaireLayout.DECK);
-		mainPanel.add(discardPile, SolitaireLayout.DISCARD_PILE);
 
 		for (int i = 0; i < acePiles.length; i++) {
 			switch (i) {
@@ -255,53 +159,34 @@ public class SolitaireBoard extends JFrame {
 			default:
 				break;
 			}
-
-			acePiles[i].addMouseListener(ml);
-		}
-
-		mainPanel.add(acePiles[0], SolitaireLayout.SPADES_ACE_PILE);
-		mainPanel.add(acePiles[1], SolitaireLayout.CLUBS_ACE_PILE);
-		mainPanel.add(acePiles[2], SolitaireLayout.DIAMONDS_ACE_PILE);
-		mainPanel.add(acePiles[3], SolitaireLayout.HEARTS_ACE_PILE);
-
-		statusBar.add(timerLabel);
-
-		JPanel p1 = new JPanel(new BorderLayout());
-		p1.add(mainPanel, BorderLayout.CENTER);
-		p1.add(statusBar, BorderLayout.SOUTH);
-		add(p1);
-
-		if (cards != null) {
-			dealOutCustomBoard(cards, numViewableCards);
-		} else {
-			dealOutBoard();
 		}
 	}
 
 	/**
 	 * Deals the cards.
+	 * 
+	 * @author Todor Balabanov
 	 */
-	private void dealOutBoard() {
-		LinkedList<Card> cards = (LinkedList<Card>) Deck.getFullShuffledDeck();
+	void dealOutBoard() {
+		LinkedList<CardComponent> cards = (LinkedList<CardComponent>) Deck
+				.getFullShuffledDeck();
 
 		/*
 		 * Fill five cards by column.
 		 */
 		for (int i = 0; i < INITIAL_CARDS_NUMBER_IN_COLUMN; i++) {
-			for (int j = 0; j < columns.length && j < cells.length; j++) {
-				Card card = cards.getLast();
+			for (int j = 0; j < columns.length; j++) {
+				columns[j].addCard(cards.getLast());
 				cards.removeLast();
-				columns[j].addCard(card);
 			}
 		}
 
 		/*
 		 * Fill cards in buffer area.
 		 */
-		for (int j = 0; j < columns.length && j < cells.length; j++) {
-			Card card = cards.getLast();
+		for (int j = 0; j < cells.length; j++) {
+			cells[j].addCard(cards.getLast());
 			cards.removeLast();
-			cells[j].addCard(card);
 		}
 
 		dealDeck.setDrawCount(newDrawCount);
@@ -316,21 +201,6 @@ public class SolitaireBoard extends JFrame {
 		}
 
 		dealDeck.setDeck(cards);
-
-		timerCount = 0;
-
-		if (timerToRunNextGame == 1) {
-			timer.stop();
-			timerLabel.setText("Timer: 0");
-			timerToRun = true;
-		} else {
-			timer.stop();
-			timerLabel.setText("Time: OFF");
-
-			timerToRun = false;
-		}
-
-		mainPanel.revalidate();
 	}
 
 	/**
@@ -339,10 +209,11 @@ public class SolitaireBoard extends JFrame {
 	 * @param numbers
 	 * 
 	 * @param numViewableCards
+	 * 
+	 * @author Todor Balabanov
 	 */
-	private void dealOutCustomBoard(LinkedList<Integer> numbers,
-			int numViewableCards) {
-		LinkedList<Card> cards = (LinkedList<Card>) Deck
+	void dealOutCustomBoard(LinkedList<Integer> numbers, int numViewableCards) {
+		LinkedList<CardComponent> cards = (LinkedList<CardComponent>) Deck
 				.getDeckSubsetByCardNumbers(numbers);
 
 		int pileNumber = 0;
@@ -366,7 +237,7 @@ public class SolitaireBoard extends JFrame {
 			} else if (8 <= pileNumber && pileNumber <= 11) {
 				acePiles[pileNumber % 4].addCard(cards.get(cardNumber));
 			} else if (pileNumber == 12) {
-				Card card = cards.get(cardNumber);
+				CardComponent card = cards.get(cardNumber);
 				card.setFaceDown();
 				dealDeck.addCard(card);
 			} else if (pileNumber == 13) {
@@ -375,24 +246,12 @@ public class SolitaireBoard extends JFrame {
 		}
 
 		discardPile.setView(numViewableCards);
-
-		if (timerToRunNextGame == 1) {
-			timer.stop();
-			timerLabel.setText("Time: " + (timerCount == -1 ? 0 : timerCount));
-
-			timerToRun = true;
-		} else {
-			timer.stop();
-			timerLabel.setText("Time: OFF");
-
-			timerToRun = false;
-		}
-
-		mainPanel.revalidate();
 	}
 
 	/**
 	 * Clears the board.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	private void clearBoard() {
 		for (int i = 0; i < columns.length; i++) {
@@ -436,34 +295,15 @@ public class SolitaireBoard extends JFrame {
 	 * For starting a new game.
 	 * 
 	 * @param winOrLoss
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void newGame(GameState winOrLoss) {
-		/*
-		 * If the game was won, the win was already reported.
-		 */
-		if (winOrLoss != GameState.GAME_WON
-				&& winOrLoss != GameState.DO_NOTHING) {
-			int check = JOptionPane.showConfirmDialog(this,
-					"Quitting the current game will result in a loss.\n"
-							+ "Do you wish to continue?", "Continue?",
-					JOptionPane.PLAIN_MESSAGE);
-
-			if (check == JOptionPane.YES_OPTION) {
-				recordGame(GameState.GAME_LOST);
-			} else {
-				/*
-				 * If player wants to continue game.
-				 */
-				return;
-			}
-		}
-
 		/*
 		 * Remove cards from ace piles. Set numTimesThroughDeck back to 1.
 		 */
 		clearBoard();
 		dealDeck.reset();
-		dealOutBoard();
 
 		sourceList.clear();
 		destinationList.clear();
@@ -472,25 +312,24 @@ public class SolitaireBoard extends JFrame {
 	}
 
 	/**
-	 * Used to reset the stats.
-	 */
-	public void resetStats() {
-		recordGame(GameState.RESET_STATS);
-	}
-
-	/**
-	 * Save options.
-	 */
-	public void saveOptions() {
-		recordGame(GameState.DO_NOTHING);
-	}
-
-	/**
 	 * Manages the game states.
 	 * 
 	 * @param winOrLoss
+	 * 
+	 * @param timerCount
+	 * 
+	 * @param backgroundNumber
+	 * 
+	 * @param deckNumber
+	 * 
+	 * @param timerToRunNextGame
+	 * 
+	 * @param timerToRun
+	 * 
+	 * @author Todor Balabanov
 	 */
-	private void recordGame(GameState winOrLoss) {
+	void recordGame(GameState winOrLoss, int deckNumber, int backgroundNumber,
+			int timerCount, int timerToRunNextGame, boolean timerToRun) {
 		int count = 0, temp = 0;
 		int gamesPlayed1e = 0, gamesWon1e = 0, winStreak1e = 0, lossStreak1e = 0, currentStreak1e = 0;
 		int gamesPlayed1m = 0, gamesWon1m = 0, winStreak1m = 0, lossStreak1m = 0, currentStreak1m = 0;
@@ -940,7 +779,8 @@ public class SolitaireBoard extends JFrame {
 
 				for (int i = 0; i < cells.length; i++) {
 					if (!cells[i].isEmpty()) {
-						saved.writeInt(cells[i].peek().getFullNumber());
+						saved.writeInt(cells[i].peek().getCard()
+								.getFullNumber());
 						saved.writeInt(-1);
 					} else {
 						saved.writeInt(-1);
@@ -951,7 +791,7 @@ public class SolitaireBoard extends JFrame {
 					if (!columns[i].isEmpty()) {
 						for (int j = 0; j < columns[i].length(); j++) {
 							saved.writeInt(columns[i].getCardAtLocation(j)
-									.getFullNumber());
+									.getCard().getFullNumber());
 						}
 
 						saved.writeInt(-1);
@@ -964,7 +804,7 @@ public class SolitaireBoard extends JFrame {
 					if (!acePiles[i].isEmpty()) {
 						for (int j = 0; j < acePiles[i].length(); j++) {
 							saved.writeInt(acePiles[i].getCardAtLocation(j)
-									.getFullNumber());
+									.getCard().getFullNumber());
 						}
 
 						saved.writeInt(-1);
@@ -975,7 +815,7 @@ public class SolitaireBoard extends JFrame {
 
 				if (!dealDeck.isEmpty()) {
 					for (int j = 0; j < dealDeck.length(); j++) {
-						saved.writeInt(dealDeck.getCardAtLocation(j)
+						saved.writeInt(dealDeck.getCardAtLocation(j).getCard()
 								.getFullNumber());
 					}
 
@@ -987,7 +827,7 @@ public class SolitaireBoard extends JFrame {
 				if (!discardPile.isEmpty()) {
 					for (int j = 0; j < discardPile.length(); j++) {
 						saved.writeInt(discardPile.getCardAtLocation(j)
-								.getFullNumber());
+								.getCard().getFullNumber());
 					}
 
 					saved.writeInt(-1);
@@ -1015,23 +855,11 @@ public class SolitaireBoard extends JFrame {
 	}
 
 	/**
-	 * Manages the appaearance.
-	 * 
-	 * @param deck
-	 * 
-	 * @param background
-	 */
-	public void setAppearance(int deck, int background) {
-		deckNumber = deck;
-		backgroundNumber = background;
-
-		mainPanel.changeBackground(backgroundNumber);
-	}
-
-	/**
 	 * Returns the draw count.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getDrawCount() {
 		return drawCount;
@@ -1041,6 +869,8 @@ public class SolitaireBoard extends JFrame {
 	 * Sets draw count.
 	 * 
 	 * @param draw
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void setDrawCount(int draw) {
 		drawCount = draw;
@@ -1054,6 +884,8 @@ public class SolitaireBoard extends JFrame {
 	 * Returns the new draw count.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public int getNewDrawCount() {
 		return newDrawCount;
@@ -1063,6 +895,8 @@ public class SolitaireBoard extends JFrame {
 	 * Sets the new draw count.
 	 * 
 	 * @param draw
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void setNewDrawCount(int draw) {
 		newDrawCount = draw;
@@ -1073,102 +907,11 @@ public class SolitaireBoard extends JFrame {
 	}
 
 	/**
-	 * Returns the deck number.
-	 * 
-	 * @return
-	 */
-	public int getDeckNumber() {
-		return deckNumber;
-	}
-
-	/**
-	 * Sets the deck number.
-	 * 
-	 * @param deckNum
-	 */
-	public void setDeckNumber(int deckNum) {
-		deckNumber = deckNum;
-
-		if (deckNumber > ChangeAppearance.NUM_DECKS || deckNumber <= 0) {
-			deckNumber = ChangeAppearance.FRS_DECK;
-		}
-	}
-
-	/**
-	 * Returns the background number.
-	 * 
-	 * @return
-	 */
-	public int getBackgroundNumber() {
-		return backgroundNumber;
-	}
-
-	/**
-	 * Sets the background number.
-	 * 
-	 * @param backNum
-	 */
-	public void setBackgroundNumber(int backNum) {
-		backgroundNumber = backNum;
-
-		if (backgroundNumber > ChangeAppearance.NUM_BACKGROUNDS
-				|| backgroundNumber <= 0) {
-			backgroundNumber = ChangeAppearance.FRS_BACKGROUND;
-		}
-	}
-
-	/**
-	 * Returns next game timer status.
-	 * 
-	 * @return
-	 */
-	public int getTimerNextGameStatus() {
-		return timerToRunNextGame;
-	}
-
-	/**
-	 * Returns the timer status.
-	 * 
-	 * @return
-	 */
-	public int getTimerStatus() {
-		if (timer.isRunning()) {
-			return 1;
-		} else {
-			return 0;
-		}
-	}
-
-	/**
-	 * Sets timer status.
-	 * 
-	 * @param timerInt
-	 */
-	public void setTimerStatus(int timerInt) {
-		if (timerInt == 1) {
-			timerToRunNextGame = 1;
-		} else if (timerInt == 0) {
-			timerToRunNextGame = 0;
-		}
-
-		if (timerInt != 0 && timerInt != 1) {
-			timerToRunNextGame = 0;
-		}
-	}
-
-	/**
-	 * Sets the timer counter.
-	 * 
-	 * @param time
-	 */
-	public void setTimer(int time) {
-		timerCount = time;
-	}
-
-	/**
 	 * Returns game difficulty.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public GameDifficulty getDifficulty() {
 		return difficulty;
@@ -1178,6 +921,8 @@ public class SolitaireBoard extends JFrame {
 	 * Sets game difficulty.
 	 * 
 	 * @param difficulty
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void setDifficulty(GameDifficulty difficulty) {
 		this.difficulty = difficulty;
@@ -1187,6 +932,8 @@ public class SolitaireBoard extends JFrame {
 	 * Returns the new difficulty.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public GameDifficulty getNewDifficulty() {
 		return newDifficulty;
@@ -1196,6 +943,8 @@ public class SolitaireBoard extends JFrame {
 	 * Sets the new difficulty.
 	 * 
 	 * @param newDifficulty
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void setNewDifficulty(GameDifficulty newDifficulty) {
 		this.newDifficulty = newDifficulty;
@@ -1205,6 +954,8 @@ public class SolitaireBoard extends JFrame {
 	 * Sets the number of times through deck.
 	 * 
 	 * @param deckThroughs
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void setDeckThroughs(int deckThroughs) {
 		dealDeck.setDeckThroughs(deckThroughs);
@@ -1212,11 +963,14 @@ public class SolitaireBoard extends JFrame {
 
 	/**
 	 * Used to undo a move.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public synchronized void undoMove() {
 		if (sourceList.isEmpty()) {
 			return;
 		}
+
 		/*
 		 * If player is holding on to a card.
 		 */
@@ -1233,20 +987,11 @@ public class SolitaireBoard extends JFrame {
 			if (num == 1) {
 				discardPile.setView(numDiscard);
 				tempSource.peek().unhighlight();
-
-				ml.clickedCard = null;
-				ml.hasSelected = false;
-				ml.singleCardSelected = false;
-				ml.temp = null;
 			} else {
 				for (int i = 0; i < num; i++) {
 					tempSource.getCardAtLocation(tempSource.length() - i - 1)
 							.unhighlight();
 				}
-
-				ml.clickedCard = null;
-				ml.hasSelected = false;
-				ml.temp = null;
 			}
 
 			tempSource.repaint();
@@ -1287,7 +1032,7 @@ public class SolitaireBoard extends JFrame {
 			numCardsInDiscardView.removeLast();
 
 			for (int i = 0; i < num; i++) {
-				Card card = discardPile.undoPop();
+				CardComponent card = discardPile.undoPop();
 				card.setFaceDown();
 				dealDeck.addCard(card);
 			}
@@ -1318,9 +1063,13 @@ public class SolitaireBoard extends JFrame {
 
 	/**
 	 * Manages the hints.
+	 * 
+	 * @return Hint structure.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	@SuppressWarnings("fallthrough")
-	public void getHint() {
+	public String[] getHint() {
 		CardStack source = new CardStack();
 		CardStack destination = new CardStack();
 		CardStack temp = new CardStack();
@@ -1387,58 +1136,70 @@ public class SolitaireBoard extends JFrame {
 							&& destination != source
 							&& !(destination instanceof SingleCell)) {
 						for (int k = temp.length() - 1; k >= 0; k--) {
-							Card card = temp.getCardAtLocation(k);
+							CardComponent card = temp.getCardAtLocation(k);
 
 							if (((destination instanceof AcePile)
-									&& card.getSuit().equals(
-											((AcePile) destination).getSuit())
-									&& card.getNumber().isLessByOneThan(
-											destination.peek().getNumber()) && k == 0)
-									|| (!(destination instanceof AcePile)
-											&& card.getColor() != destination
-													.peek().getColor() && card
-											.getNumber().isGreaterByOneThan(
+									&& card.getCard()
+											.getSuit()
+											.equals(((AcePile) destination)
+													.getSuit())
+									&& card.getCard()
+											.getNumber()
+											.isLessByOneThan(
 													destination.peek()
+															.getCard()
+															.getNumber()) && k == 0)
+									|| (!(destination instanceof AcePile)
+											&& card.getCard().getColor() != destination
+													.peek().getCard()
+													.getColor() && card
+											.getCard()
+											.getNumber()
+											.isGreaterByOneThan(
+													destination.peek()
+															.getCard()
 															.getNumber()))) {
 								String hintString = "Move the ";
 
-								if (card.getNumber().equals(CardRank.JACK)) {
-									hintString += "Jack";
-								} else if (card.getNumber().equals(
-										CardRank.QUEEN)) {
-									hintString += "Queen";
-								} else if (card.getNumber().equals(
-										CardRank.KING)) {
-									hintString += "King";
-								} else if (card.getNumber()
-										.equals(CardRank.ACE)) {
-									hintString += "Ace";
-								} else {
-									hintString += card.getNumber();
-								}
-
-								hintString += " of " + card.getSuit() + " in "
-										+ sourceString + " to the ";
-
-								if (destination.peek().getNumber()
+								if (card.getCard().getNumber()
 										.equals(CardRank.JACK)) {
 									hintString += "Jack";
-								} else if (destination.peek().getNumber()
+								} else if (card.getCard().getNumber()
 										.equals(CardRank.QUEEN)) {
 									hintString += "Queen";
-								} else if (destination.peek().getNumber()
+								} else if (card.getCard().getNumber()
 										.equals(CardRank.KING)) {
 									hintString += "King";
-								} else if (destination.peek().getNumber()
+								} else if (card.getCard().getNumber()
 										.equals(CardRank.ACE)) {
 									hintString += "Ace";
 								} else {
-									hintString += destination.peek()
+									hintString += card.getCard().getNumber();
+								}
+
+								hintString += " of " + card.getCard().getSuit()
+										+ " in " + sourceString + " to the ";
+
+								if (destination.peek().getCard().getNumber()
+										.equals(CardRank.JACK)) {
+									hintString += "Jack";
+								} else if (destination.peek().getCard()
+										.getNumber().equals(CardRank.QUEEN)) {
+									hintString += "Queen";
+								} else if (destination.peek().getCard()
+										.getNumber().equals(CardRank.KING)) {
+									hintString += "King";
+								} else if (destination.peek().getCard()
+										.getNumber().equals(CardRank.ACE)) {
+									hintString += "Ace";
+								} else {
+									hintString += destination.peek().getCard()
 											.getNumber();
 								}
 
 								hintString += " of "
-										+ destination.peek().getSuit() + " in "
+										+ destination.peek().getCard()
+												.getSuit() + " in "
 										+ destinationString;
 
 								hints.add(hintString);
@@ -1453,14 +1214,15 @@ public class SolitaireBoard extends JFrame {
 							&& destination != source
 							&& (destination instanceof Column)
 							&& destination.isEmpty()
-							&& (source.getBottom().getNumber()
+							&& (source.getBottom().getCard().getNumber()
 									.equals(CardRank.KING) == false || source instanceof SingleCell)) {
 						for (int k = 0; k < temp.length(); k++) {
-							Card card = temp.getCardAtLocation(k);
+							CardComponent card = temp.getCardAtLocation(k);
 
-							if (card.getNumber().equals(CardRank.KING)) {
+							if (card.getCard().getNumber()
+									.equals(CardRank.KING)) {
 								String hintString = "Move the King of "
-										+ card.getSuit() + " in "
+										+ card.getCard().getSuit() + " in "
 										+ sourceString + " to the empty "
 										+ destinationString;
 
@@ -1475,14 +1237,16 @@ public class SolitaireBoard extends JFrame {
 					} else if (destination != null && destination != source
 							&& (destination instanceof AcePile)
 							&& destination.isEmpty()) {
-						Card card = temp.peek();
+						CardComponent card = temp.peek();
 
-						if (card.getNumber().equals(CardRank.ACE)
-								&& card.getSuit().equals(
-										((AcePile) destination).getSuit())) {
+						if (card.getCard().getNumber().equals(CardRank.ACE)
+								&& card.getCard()
+										.getSuit()
+										.equals(((AcePile) destination)
+												.getSuit())) {
 							String hintString = "Move the Ace of "
-									+ card.getSuit() + " in " + sourceString
-									+ " to " + destinationString;
+									+ card.getCard().getSuit() + " in "
+									+ sourceString + " to " + destinationString;
 
 							hints.add(hintString);
 							/*
@@ -1504,471 +1268,18 @@ public class SolitaireBoard extends JFrame {
 			}
 		}
 
+		String hint[] = { "", "" };
 		if (hints.isEmpty() == false) {
-			String string = "";
-
 			for (int i = 0; i < hints.size(); i++) {
-				string += hints.get(i) + "\n";
+				hint[0] += hints.get(i) + "\n";
 			}
-
-			JOptionPane.showMessageDialog(this, string, "Hints Galore",
-					JOptionPane.INFORMATION_MESSAGE);
+			hint[1] = "Hints Galore";
 		} else {
-			JOptionPane.showMessageDialog(this,
-					"There are no moves on the field.\n"
-							+ "Either deal more cards or start a new game",
-					"Hints", JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-
-	/**
-	 * Manages the mouse events.
-	 * 
-	 * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav
-	 *         Medarov
-	 * 
-	 */
-	private class MyMouseListener extends MouseInputAdapter {
-		/**
-		 * If true, the player hasn't completed a move.
-		 */
-		private boolean hasSelected = false;
-
-		/**
-		 * If true, the selected stack is only one card.
-		 */
-		private boolean singleCardSelected = false;
-
-		/**
-		 * 
-		 */
-		private Card clickedCard;
-		/**
-		 * 
-		 */
-		private CardStack source;
-		/**
-		 * 
-		 */
-		private CardStack destination;
-		/**
-		 * 
-		 */
-		private CardStack temp;
-
-		/**
-		 * For right clicking discard pile view.
-		 */
-		private Card tempCard;
-
-		/**
-		 * To prevent clicking cards from the right click view.
-		 */
-		private boolean rightClicked = false;
-
-		/**
-		 * Checks if the game is won
-		 */
-		private void checkWin() {
-			for (int i = 0; i < acePiles.length; i++) {
-				if (acePiles[i].isEmpty()
-						|| acePiles[i].peek().getNumber().equals(CardRank.KING) == false) {
-					return;
-				}
-			}
-
-			if (WinScreen.animation != 0 || WinScreen.sounds != 0) {
-				new WinScreen();
-			}
-
-			if (timerToRun) {
-				final TopTimes top = new TopTimes();
-				int pos = top.IsTopTime(timerCount);
-
-				top.addWindowListener(new WindowAdapter() {
-					@Override
-					public void windowClosing(WindowEvent e) {
-						top.setVisible(false);
-						int playAgain = JOptionPane.showConfirmDialog(
-								SolitaireBoard.this, "Play Again?", "You Won!",
-								JOptionPane.YES_NO_OPTION);
-
-						if (playAgain == JOptionPane.YES_OPTION) {
-							recordGame(GameState.GAME_WON);
-							newGame(GameState.GAME_WON);
-						} else if (playAgain == JOptionPane.NO_OPTION) {
-							recordGame(GameState.GAME_WON);
-							System.exit(0);
-						}
-					}
-				});
-
-				if (pos >= 0) {
-					top.setProperties(timerCount);
-					top.setVisible(true);
-				} else {
-					top.dispose();
-				}
-			}
-
-			int playAgain = JOptionPane.showConfirmDialog(SolitaireBoard.this,
-					"Play Again?", "You Won!", JOptionPane.YES_NO_OPTION);
-
-			if (playAgain == JOptionPane.YES_OPTION) {
-				recordGame(GameState.GAME_WON);
-				newGame(GameState.GAME_WON);
-			} else if (playAgain == JOptionPane.NO_OPTION) {
-				recordGame(GameState.GAME_WON);
-				System.exit(0);
-			}
+			hint[0] = "There are no moves on the field.\n"
+					+ "Either deal more cards or start a new game";
+			hint[1] = "Hints";
 		}
 
-		/**
-		 * Mouse-pressed event.
-		 * 
-		 * @param e
-		 */
-		public void mousePressed(MouseEvent e) {
-			if (e.getButton() == MouseEvent.BUTTON3
-					&& e.getSource() == discardPile) {
-				if (discardPile.getNumViewableCards() == 1
-						|| (discardPile.getNumViewableCards() == 0 && !discardPile
-								.isEmpty())) {
-					tempCard = discardPile.pop();
-					discardPile.repaint();
-					rightClicked = true;
-				}
-			}
-		}
-
-		/**
-		 * Mouse-released event.
-		 * 
-		 * @param e
-		 */
-		public void mouseReleased(MouseEvent e) {
-			if (e.getButton() == MouseEvent.BUTTON3 && tempCard != null) {
-				discardPile.push(tempCard);
-				discardPile.repaint();
-				rightClicked = false;
-				tempCard = null;
-			}
-		}
-
-		/**
-		 * Mouse-clicked event.
-		 * 
-		 * @param e
-		 */
-		public void mouseClicked(MouseEvent e) {
-			discardPile.repaint();
-			discardPile.revalidate();
-
-			if (!timer.isRunning() && timerToRun) {
-				timer.start();
-			}
-
-			if ((e.getButton() != MouseEvent.BUTTON1) || rightClicked) {
-				return;
-			}
-
-			else if (e.getClickCount() == 2 && hasSelected
-					&& singleCardSelected) {
-				if (source.peek().getNumber().equals(CardRank.ACE)) {
-					if (source.peek().getSuit().equals(CardSuit.SPADES)) {
-						Card card = source.pop();
-						card.unhighlight();
-						acePiles[0].push(card);
-						destinationList.add(acePiles[0]);
-					} else if (source.peek().getSuit().equals(CardSuit.CLUBS)) {
-						Card card = source.pop();
-						card.unhighlight();
-						acePiles[1].push(card);
-						destinationList.add(acePiles[1]);
-					} else if (source.peek().getSuit()
-							.equals(CardSuit.DIAMONDS)) {
-						Card card = source.pop();
-						card.unhighlight();
-						acePiles[2].push(card);
-						destinationList.add(acePiles[2]);
-					} else if (source.peek().getSuit().equals(CardSuit.HEARTS)) {
-						Card card = source.pop();
-						card.unhighlight();
-						acePiles[3].push(card);
-						destinationList.add(acePiles[3]);
-					}
-
-					hasSelected = false;
-					source.repaint();
-					repaint();
-					return;
-				}
-
-				for (int i = 0; i < acePiles.length; i++) {
-					if (!acePiles[i].isEmpty()
-							&& source.peek().getSuit()
-									.equals(acePiles[i].peek().getSuit())
-							&& source
-									.peek()
-									.getNumber()
-									.isLessByOneThan(
-											(acePiles[i].peek().getNumber()))) {
-						Card card = source.pop();
-						card.unhighlight();
-						acePiles[i].push(card);
-
-						destinationList.add(acePiles[i]);
-						hasSelected = false;
-
-						source.repaint();
-						repaint();
-
-						if (card.getNumber().equals(CardRank.KING)) {
-							checkWin();
-						}
-
-						return;
-					}
-				}
-
-				for (int i = 0; i < cells.length; i++) {
-					if (cells[i].isEmpty()) {
-						Card card = source.pop();
-						card.unhighlight();
-						cells[i].push(card);
-
-						destinationList.add(cells[i]);
-						hasSelected = false;
-
-						source.repaint();
-						repaint();
-						return;
-					}
-				}
-
-				source.peek().unhighlight();
-
-				source.repaint();
-				repaint();
-				return;
-			} else if (e.getClickCount() == 2 && hasSelected) {
-				hasSelected = false;
-
-				if (temp.length() > 0) {
-					for (int i = 0; i < temp.length(); i++) {
-						source.getCardAtLocation(source.length() - i - 1)
-								.unhighlight();
-					}
-				}
-
-				sourceList.removeLast();
-				numCardsInDiscardView.removeLast();
-				numCards.removeLast();
-			}
-
-			else if (!hasSelected && e.getClickCount() == 1
-					|| (e.getSource() instanceof DealDeck)) {
-				source = (CardStack) e.getSource();
-
-				if (source instanceof DealDeck) {
-					if (hasSelected) {
-						hasSelected = false;
-
-						if (temp.length() > 0) {
-							for (int i = 0; i < temp.length(); i++) {
-								sourceList
-										.getLast()
-										.getCardAtLocation(
-												sourceList.getLast().length()
-														- i - 1).unhighlight();
-							}
-						} else {
-							sourceList.getLast().peek().unhighlight();
-						}
-
-						sourceList.getLast().repaint();
-						repaint();
-						sourceList.removeLast();
-						numCardsInDiscardView.removeLast();
-						numCards.removeLast();
-					}
-
-					numCardsInDiscardView
-							.add(discardPile.getNumViewableCards());
-					clickedCard = source.pop();
-
-					if (clickedCard != null) {
-						sourceList.add(dealDeck);
-						destinationList.add(discardPile);
-						numCards.add(discardPile.getNumViewableCards());
-					}
-					/*
-					 * The deck was reset but the player hasn't used up the
-					 * times through the deck.
-					 */
-					else if (dealDeck.hasDealsLeft()) {
-						sourceList.add(dealDeck);
-						destinationList.add(discardPile);
-						numCards.add(0);
-					} else {
-						numCardsInDiscardView.removeLast();
-					}
-
-					return;
-				}
-
-				numCardsInDiscardView.add(discardPile.getNumViewableCards());
-				clickedCard = source.getCardAtLocation(e.getPoint());
-
-				if (clickedCard != null) {
-					hasSelected = true;
-					temp = source.getStack(clickedCard);
-
-					sourceList.add(source);
-					numCards.add(temp.length());
-
-					if (temp.length() > 1) {
-						singleCardSelected = false;
-					} else {
-						singleCardSelected = true;
-					}
-				} else {
-					numCardsInDiscardView.removeLast();
-					hasSelected = false;
-					return;
-				}
-			}
-			/*
-			 * Stack/card already selected.
-			 */
-			else if (e.getClickCount() == 1 && hasSelected) {
-				destination = (CardStack) e.getSource();
-
-				if (singleCardSelected) {
-					if (destination.isValidMove(clickedCard)) {
-						Card card = source.pop();
-						card.unhighlight();
-						destination.push(card);
-
-						/*
-						 * If move is valid, add destination info for undo.
-						 */
-						destinationList.add(destination);
-
-						if (destination instanceof AcePile
-								&& clickedCard.getNumber()
-										.equals(CardRank.KING)) {
-							repaint();
-							checkWin();
-						}
-					} else {
-						/*
-						 * Not needed with highlighting version.
-						 */
-						source.peek().unhighlight();
-
-						/*
-						 * Upon invalid move, remove undo information for cards.
-						 */
-						sourceList.removeLast();
-						numCards.removeLast();
-						numCardsInDiscardView.removeLast();
-					}
-				} else {
-					if (destination.isValidMove(temp)) {
-						CardStack stack = new CardStack();
-
-						for (int i = temp.length(); i > 0; i--) {
-							Card card = source.pop();
-							card.unhighlight();
-
-							stack.push(card);
-						}
-
-						destination.push(stack);
-
-						/*
-						 * If move is valid, add destination info for undo.
-						 */
-						destinationList.add(destination);
-					} else {
-						for (int i = temp.length() - 1; i >= 0; i--) {
-							source.getCardAtLocation(source.length() - i - 1)
-									.unhighlight();
-						}
-
-						/*
-						 * Upon invalid move, remove undo information for cards.
-						 */
-						sourceList.removeLast();
-						numCards.removeLast();
-						numCardsInDiscardView.removeLast();
-					}
-				}
-
-				singleCardSelected = false;
-				hasSelected = false;
-				temp = null;
-				clickedCard = null;
-			}
-
-			repaint();
-		}
-	}
-
-	/**
-	 * Timer displaying.
-	 * 
-	 * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav
-	 *         Medarov
-	 * 
-	 */
-	private class TimerListener implements ActionListener {
-
-		/**
-		 * Action performed
-		 * 
-		 * @param e
-		 */
-		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() != timer) {
-				return;
-			}
-			timerCount++;
-			timerLabel.setText("Time: " + timerCount);
-			statusBar.repaint();
-		}
-	}
-
-	/**
-	 * Manages the window events.
-	 * 
-	 * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav
-	 *         Medarov
-	 * 
-	 */
-	public class MyWindowListener extends WindowAdapter {
-
-		/**
-		 * On closing the main window:
-		 * 
-		 * @param e
-		 */
-		public void windowClosing(WindowEvent e) {
-			int save = JOptionPane
-					.showConfirmDialog(
-							SolitaireBoard.this,
-							"Closing without saving will result "
-									+ "in a loss, would you like to save the current game?",
-							"Save Game?", JOptionPane.YES_NO_OPTION);
-
-			if (save == JOptionPane.YES_OPTION) {
-				recordGame(GameState.GAME_SAVED);
-				System.exit(0);
-			} else if (save == JOptionPane.NO_OPTION) {
-				recordGame(GameState.GAME_LOST);
-				System.exit(0);
-			}
-		}
+		return (hint);
 	}
 }

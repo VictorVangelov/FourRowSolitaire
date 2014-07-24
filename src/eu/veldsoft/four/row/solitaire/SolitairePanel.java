@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -31,9 +31,10 @@ import javax.swing.JPanel;
  * 
  * Description: The Solitaire Panel is the main playing field view.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Matt Stephen
  */
-public class SolitairePanel extends JPanel {
+class SolitairePanel extends JPanel {
+
 	/**
 	 * 
 	 */
@@ -46,11 +47,13 @@ public class SolitairePanel extends JPanel {
 
 	/**
 	 * Sets the field image.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public SolitairePanel() {
 		URL imageURL = this.getClass().getResource(
-				"images/backgrounds/background"
-						+ SolitaireBoard.backgroundNumber + ".jpg");
+				"images/vanya/backgrounds/background"
+						+ SolitaireFrame.backgroundNumber + ".jpg");
 
 		if (imageURL != null) {
 			background = new ImageIcon(imageURL).getImage();
@@ -62,12 +65,14 @@ public class SolitairePanel extends JPanel {
 	 * number represents a certain background image.
 	 * 
 	 * @param back
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void changeBackground(int back) {
-		SolitaireBoard.backgroundNumber = back;
+		SolitaireFrame.backgroundNumber = back;
 
 		URL imageURL = this.getClass().getResource(
-				"images/backgrounds/background" + back + ".jpg");
+				"images/vanya/backgrounds/background" + back + ".jpg");
 
 		if (imageURL != null) {
 			background = new ImageIcon(imageURL).getImage();
@@ -80,6 +85,8 @@ public class SolitairePanel extends JPanel {
 	 * Draws the board's background.
 	 * 
 	 * @param g
+	 * 
+	 * @author Todor Balabanov
 	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);

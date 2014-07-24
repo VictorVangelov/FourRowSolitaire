@@ -1,7 +1,7 @@
 /*
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -23,31 +23,37 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 /**
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Todor Balabanov
  */
 public class MenuActivity extends Activity {
 
+	/**
+	 * On Creation.
+	 * 
+	 * @param savedInstanceState
+	 * 
+	 * @author Konstantin Tsanov
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
 
 		((Button) findViewById(R.id.new_game_button))
-		.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				MenuActivity.this.startActivity(new Intent(
-						MenuActivity.this, GameActivity.class));
-			}
-		});
-		
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						MenuActivity.this.startActivity(new Intent(
+								MenuActivity.this, GameActivity.class));
+					}
+				});
+
 		((Button) findViewById(R.id.statistics_button))
 				.setOnClickListener(new OnClickListener() {
 					@Override
@@ -113,11 +119,4 @@ public class MenuActivity extends Activity {
 					}
 				});
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
-		return true;
-	}
-
 }

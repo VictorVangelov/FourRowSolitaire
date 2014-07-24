@@ -2,7 +2,7 @@
 
  This file is a part of Four Row Solitaire
 
- Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ Copyright (C) 2010-2014 by Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov, Vanya Gyaurova, Plamena Popova, Hristiana Kalcheva
 
  Four Row Solitaire is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -34,9 +34,10 @@ import javax.swing.Timer;
  * Description: The FireworksDisplay class manages the win animation for Four
  * Row Solitaire.
  * 
- * @author Matt Stephen, Todor Balabanov, Konstantin Tsanov, Ventsislav Medarov
+ * @author Matt Stephen
  */
-public class FireworksDisplay extends JPanel implements ActionListener {
+class FireworksDisplay extends JPanel implements ActionListener {
+
 	/**
 	 * 
 	 */
@@ -67,8 +68,14 @@ public class FireworksDisplay extends JPanel implements ActionListener {
 	 */
 	private static final Color CUSTOM_COLOR_1 = new Color(153, 50, 205);
 
+	/**
+	 * Fireworks.
+	 */
 	private int[] x;
 
+	/**
+	 * Fireworks.
+	 */
 	private int[] y;
 
 	/**
@@ -86,8 +93,19 @@ public class FireworksDisplay extends JPanel implements ActionListener {
 	 */
 	private int[][] yy;
 
+	/**
+	 * 
+	 */
 	private int num = 0;
+
+	/**
+	 * 
+	 */
 	private int numSets = 0;
+
+	/**
+	 * 
+	 */
 	private int startValue = 0;
 
 	/**
@@ -101,6 +119,8 @@ public class FireworksDisplay extends JPanel implements ActionListener {
 	 * @param num
 	 * 
 	 * @param size
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public FireworksDisplay(int num, int size) {
 		NUM_FIREWORKS = num;
@@ -118,6 +138,8 @@ public class FireworksDisplay extends JPanel implements ActionListener {
 
 	/**
 	 * Fires the fireworks.
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void restartDisplay() {
 		timer.stop();
@@ -165,6 +187,8 @@ public class FireworksDisplay extends JPanel implements ActionListener {
 	 * Generates a random number representing one of the colors below.
 	 * 
 	 * @return
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public Color randomColor() {
 		switch (Common.PRNG.nextInt(10)) {
@@ -197,6 +221,8 @@ public class FireworksDisplay extends JPanel implements ActionListener {
 	 * Paint procedure.
 	 * 
 	 * @param g
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -544,6 +570,8 @@ public class FireworksDisplay extends JPanel implements ActionListener {
 	 * Action performed.
 	 * 
 	 * @param e
+	 * 
+	 * @author Todor Balabanov
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() != timer) {
